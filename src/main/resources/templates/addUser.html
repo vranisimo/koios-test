@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Koios test task</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+    <h3>Add new user</h3>
+    <form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
+        <div>
+            <table class="table table-bordered table-responsive" style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="firstname">First Name</label>
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{firstname}" id="firstname" placeholder="First Name" required>
+                            <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="lastname">Last Name</label>
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{lastname}" id="lastname" placeholder="Last Name" required>
+                            <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="birthdate">Birthdate</label>
+                        </td>
+                        <td>
+                            <input type="date" th:field="*{birthdate}" id="birthdate" required>
+                            <span th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="email">Email</label>
+                        </td>
+                        <td>
+                            <input type="email" th:field="*{email}" id="email" placeholder="Email" required>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <a href="/">Cancel</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" type="submit" value="Add">Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
+

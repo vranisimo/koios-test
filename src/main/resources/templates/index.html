@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Koios test task</title>
+
+    <link th:rel="stylesheet" th:href="@{assets/datatable/datatables.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Koios test task</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="col-lg-10 mt-4 mb-5">
+        <h3>Users</h3>
+        <p><a href="/adduser">Add a new user</a></p>
+        <table id="users" class="table table-bordered table-responsive" style="width: 100%">
+            <thead>
+            <tr>
+                <th style="width:10%">First Name</th>
+                <th style="width:10%">Last Name</th>
+                <th style="width:10%">Email</th>
+                <th style="width:10%">Birthdate</th>
+                <th style="width:10%">Actions</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/datatable/datatables.js}"></script>
+
+<script>
+    $('#users').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "/users",
+            "type": "POST",
+            "dataType": "json",
+            "contentType": "application/json",
+            "data": function (d) {
+                return JSON.stringify(d);
+            }
+        },
+        "columns": [
+            {"data": "firstname"},
+            {"data": "lastname"},
+            {"data": "email"},
+            {"data": "birthdate"},
+            {
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    if (type === 'display') {
+                        data = '<a href="edit?id=' + data.id + '">Edit</a>&nbsp;&nbsp;<a href="delete?id=' + data.id + '">Delete</a>';
+                    }
+                    return data;
+                }
+            }
+        ]
+    });
+</script>
+
+</body>
+</html>
